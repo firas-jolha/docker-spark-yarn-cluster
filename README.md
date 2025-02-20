@@ -1,11 +1,11 @@
-# Docker hadoop yarn cluster for spark 2.4.1
+# Docker hadoop yarn cluster for spark 3.5.4
 
 <p align="center">
   <img src="logo.jpg">
 </p>
 
 
-Provides Docker multi-nodes Hadoop cluster with Spark 2.4.1 on Yarn. 
+Provides Docker multi-nodes Hadoop cluster with Spark 3.5.4 on Yarn. 
 
 
 * [Usage](#usage)

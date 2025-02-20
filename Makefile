@@ -8,11 +8,21 @@ build :
 start :
 	@echo " ---- START ---- "
 	@chmod +x startHadoopCluster.sh
-	@./startHadoopCluster.sh
+	@./startHadoopCluster.sh 3
 stop :
 	@echo " ---- STOP ---- "
 	@chmod +x stop.sh
 	@./stop.sh
+
+remove :
+	@echo " ---- REMOVE ---- "
+	@chmod +x remove_containers.sh
+	@./remove_containers.sh
+
+# remove :
+# 	@echo " ---- REMOVE ---- "
+# 	@chmod +x remove_containers.sh
+# 	@./remove_containers.sh
 
 connect :
 	@echo " ---- MASTER NODE ---- "

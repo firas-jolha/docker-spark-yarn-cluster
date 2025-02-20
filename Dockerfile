@@ -1,25 +1,30 @@
-FROM ubuntu:16.04
+# FROM ubuntu:16.04
+FROM ubuntu:20.04
 
 
 USER root
 
-RUN apt-get update && apt-get -y dist-upgrade && apt-get install -y openssh-server default-jdk wget scala
+RUN apt-get update && apt-get -y dist-upgrade && apt-get install -y openssh-server default-jdk wget scala openjdk-8-jdk
 RUN  apt-get -y update
 RUN  apt-get -y install zip 
 RUN  apt-get -y install vim
+
 ENV JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64
 
 RUN ssh-keygen -t rsa -f $HOME/.ssh/id_rsa -P "" \
     && cat $HOME/.ssh/id_rsa.pub >> $HOME/.ssh/authorized_keys
 
-RUN wget -O /hadoop.tar.gz -q http://archive.apache.org/dist/hadoop/core/hadoop-2.7.3/hadoop-2.7.3.tar.gz \
-        && tar xfz hadoop.tar.gz \
-        && mv /hadoop-2.7.3 /usr/local/hadoop \
-        && rm /hadoop.tar.gz
+ENV SPARK_VERSION=3.5.4
+ENV HADOOP_VERSION=3.3.1
 
-RUN wget -O /spark.tar.gz -q https://archive.apache.org/dist/spark/spark-2.4.1/spark-2.4.1-bin-hadoop2.7.tgz
+RUN wget -O /hadoop.tar.gz http://archive.apache.org/dist/hadoop/core/hadoop-$HADOOP_VERSION/hadoop-$HADOOP_VERSION.tar.gz \
+    && tar xfz hadoop.tar.gz \
+    && mv /hadoop-$HADOOP_VERSION /usr/local/hadoop \
+    && rm /hadoop.tar.gz
+
+RUN wget -O /spark.tar.gz https://archive.apache.org/dist/spark/spark-$SPARK_VERSION/spark-$SPARK_VERSION-bin-hadoop3.tgz
 RUN tar xfz spark.tar.gz
-RUN mv /spark-2.4.1-bin-hadoop2.7 /usr/local/spark
+RUN mv /spark-$SPARK_VERSION-bin-hadoop3 /usr/local/spark
 RUN rm /spark.tar.gz
 
 
@@ -28,7 +33,7 @@ ENV SPARK_HOME=/usr/local/spark
 ENV PATH=$PATH:$HADOOP_HOME/bin:$HADOOP_HOME/sbin:$SPARK_HOME/bin:$SPARK_HOME:sbin
 
 RUN mkdir -p $HADOOP_HOME/hdfs/namenode \
-        && mkdir -p $HADOOP_HOME/hdfs/datanode
+    && mkdir -p $HADOOP_HOME/hdfs/datanode
 
 
 COPY config/ /tmp/
@@ -57,6 +62,9 @@ EXPOSE 10020 19888
 EXPOSE 8030 8031 8032 8033 8040 8042 8088
 EXPOSE 49707 2122 7001 7002 7003 7004 7005 7006 7007 8888 9000
 
-ENTRYPOINT service ssh start; cd $SPARK_HOME; bash
+RUN mkdir -p /app
 
+SHELL ["/bin/bash", "-c"]
+
+ENTRYPOINT service ssh start;cd ${SPARK_HOME};bash
 

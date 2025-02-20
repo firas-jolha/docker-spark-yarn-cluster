@@ -26,6 +26,7 @@ HADOOP_MASTER="$HOST_PREFIX"-master
 docker run --name $HADOOP_MASTER -h $HADOOP_MASTER --net=$NETWORK_NAME \
 		-p  8088:8088  -p 50070:50070 -p 50090:50090 \
 		-p  8080:8080 \
+		-v "$PWD/app":"/app" \
 		-itd "$IMG_NAME"
 
 
