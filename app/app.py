@@ -1,5 +1,5 @@
 from pyspark.sql import SparkSession
-import pandas as pd
+# import pandas as pd
 
 
 spark = SparkSession\
@@ -11,7 +11,7 @@ sc = spark.sparkContext
 sc.setLogLevel("OFF") # WARN, FATAL, INFO
 
 data = [('hello', 1), ('world', 2)]
-print(pd.DataFrame(data))
+# print(pd.DataFrame(data))
 
 
 spark.createDataFrame(data).show()
@@ -20,5 +20,5 @@ spark.createDataFrame(data).show()
 rdd = sc.parallelize(data)
 print(rdd.collect())
 
-
+print("hello")
 

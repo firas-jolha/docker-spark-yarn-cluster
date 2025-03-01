@@ -24,11 +24,14 @@ done
 
 HADOOP_MASTER="$HOST_PREFIX"-master
 docker run --name $HADOOP_MASTER -h $HADOOP_MASTER --net=$NETWORK_NAME \
-		-p  8088:8088  -p 50070:50070 -p 50090:50090 \
+		-p  8088:8088  \
 		-p  8080:8080 \
+		-p 4040:4040 \
+		-p 5070:50070 \
+		-p 5090:50090 \
 		-v "$PWD/app":"/app" \
 		-itd "$IMG_NAME"
-
+# -p 50070:50070 -p 50090:50090 
 
 # START MULTI-NODES CLUSTER
 docker exec -it $HADOOP_MASTER "/usr/local/hadoop/spark-services.sh"

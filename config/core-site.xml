@@ -4,12 +4,14 @@
 	<!--
 	  Pseudo-Distributed Mode.
 	-->
+	<!-- https://hadoop.apache.org/docs/r2.8.0/hadoop-project-dist/hadoop-common/core-default.xml -->
 	<property>
 	   <name>fs.defaultFS</name>
 	   <value>hdfs://cluster-master:9000/</value>
+	   <!-- the location of the namenode -->
 	</property>
-	<property>
+	<!-- <property>
 	   <name>io.file.buffer.size</name>
 	   <value>131072</value>
-	</property>
+	</property> -->
 </configuration>

@@ -4,20 +4,26 @@
 	<!--
 	  Pseudo-Distributed Mode.
 	-->
+
+	<!-- Reference: https://hadoop.apache.org/docs/r2.6.0/hadoop-project-dist/hadoop-hdfs/hdfs-default.xml -->
 	<property>
 		<name>dfs.blocksize</name>
 		<value>134217728</value>
+		<!-- The default block size for new files, in bytes. -->
 	</property>
 	<property>
 		<name>dfs.replication</name>
 		<value>1</value>
+		<!-- replication factor for HDFS, i.e. the number of times the same data is copied in HDFS for fail safety. -->
 	</property>
 	<property>
 		<name>dfs.namenode.name.dir</name>
 		<value>file:///usr/local/hadoop/hdfs/namenode</value>
+		<!-- Determines where on the local filesystem the DFS name node should store the name table(fsimage) -->
 	</property>
 	<property>
 		<name>dfs.datanode.data.dir</name>
 		<value>file:///usr/local/hadoop/hdfs/datanode</value>
+		<!-- Determines where on the local filesystem an DFS data node should store its blocks. -->
 	</property>
 </configuration>
