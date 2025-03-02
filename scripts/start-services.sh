@@ -15,9 +15,10 @@ hdfs dfsadmin -report
 
 # create a directory for spark apps in HDFS
 hdfs dfs -mkdir -p /apps/spark
+
 # Copy all jars to HDFS
 zip /usr/local/spark/jars/spark-jars.zip /usr/local/spark/jars/*
-hadoop fs -put /usr/local/spark/jars/spark-jars.zip  /apps/spark
+hdfs dfs -put /usr/local/spark/jars/spark-jars.zip  /apps/spark
 
 # Starts both a master and a number of workers
 $SPARK_HOME/sbin/start-all.sh

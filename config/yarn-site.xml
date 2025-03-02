@@ -53,5 +53,10 @@
     <value>false</value>
 </property>
 
+<property>
+  <name>yarn.resourcemanager.proxy-user-privileges.enabled</name>
+  <value>true</value>
+</property>
+
 
 </configuration>
