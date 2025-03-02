@@ -6,7 +6,11 @@ FROM ubuntu:20.04
 USER root
 
 # install jfk and other tools
-RUN apt-get update && apt-get -y dist-upgrade && apt-get install -y openssh-server default-jdk wget scala openjdk-8-jdk net-tools iputils-ping
+RUN apt-get update && \
+ apt-get -y dist-upgrade && \
+ apt-get install -y openssh-server \ 
+ default-jdk wget scala openjdk-8-jdk \ 
+ net-tools iputils-ping curl
 
 RUN  apt-get -y update
 # install zip tool
@@ -58,13 +62,14 @@ RUN mv /tmp/ssh_config $HOME/.ssh/config \
     && cp $HADOOP_HOME/etc/hadoop/mapred-site.xml.template $HADOOP_HOME/etc/hadoop/mapred-site.xml \
     && mv /tmp/yarn-site.xml $HADOOP_HOME/etc/hadoop/yarn-site.xml \
     && cp /tmp/slaves $HADOOP_HOME/etc/hadoop/slaves \
+    && cp /tmp/workers $HADOOP_HOME/etc/hadoop/workers \
     && mv /tmp/slaves $SPARK_HOME/conf/slaves \
     && mv /tmp/spark/spark-env.sh $SPARK_HOME/conf/spark-env.sh \
     && mv /tmp/spark/log4j.properties $SPARK_HOME/conf/log4j.properties \
     && mv /tmp/spark/spark.defaults.conf $SPARK_HOME/conf/spark.defaults.conf
 
-# run the script start services
-ADD scripts/spark-services.sh $HADOOP_HOME/spark-services.sh
+# copy the script to the container
+ADD scripts/start-services.sh $HADOOP_HOME/start-services.sh
 
 # Change permissions of Hadoop
 RUN chmod 744 -R $HADOOP_HOME

@@ -6,7 +6,7 @@ $HADOOP_HOME/sbin/start-dfs.sh
 # starting Yarn daemons
 $HADOOP_HOME/sbin/start-yarn.sh
 
-# track process ID
+# track process IDs of services
 jps -lm
 
 # subtool to perform administrator functions on HDFS
@@ -28,7 +28,7 @@ $SPARK_HOME/sbin/start-all.sh
 # print version of Scala of Spark
 scala -version
 
-# track process ID
+# track process IDs of services
 jps -lm
 
 
