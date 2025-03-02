@@ -23,7 +23,9 @@ ENV JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64
 
 # Create ssh key and exchange it with the container
 RUN ssh-keygen -t rsa -f $HOME/.ssh/id_rsa -P "" \
-    && cat $HOME/.ssh/id_rsa.pub >> $HOME/.ssh/authorized_keys
+    && cat $HOME/.ssh/id_rsa.pub >> $HOME/.ssh/authorized_keys 
+    # \
+    # && 
 
 # set spark and hadoop versions
 ENV SPARK_VERSION=3.5.4
