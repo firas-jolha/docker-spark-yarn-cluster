@@ -14,11 +14,14 @@ jps -lm
 hdfs dfsadmin -report
 
 # create a directory for spark apps in HDFS
-hdfs dfs -mkdir -p /apps/spark
+hdfs dfs -mkdir -p /apps/spark/jars
+hdfs dfs -chmod 744 /apps/spark/jars
+
 
 # Copy all jars to HDFS
-zip /usr/local/spark/jars/spark-jars.zip /usr/local/spark/jars/*
-hdfs dfs -put /usr/local/spark/jars/spark-jars.zip  /apps/spark
+# zip /usr/local/spark/jars/spark-jars.zip /usr/local/spark/jars/*
+hdfs dfs -put /usr/local/spark/jars/* /apps/spark/jars/
+# spark-jars.zip  /apps/spark
 
 # Starts both a master and a number of workers
 $SPARK_HOME/sbin/start-all.sh
@@ -33,4 +36,4 @@ scala -version
 jps -lm
 
 
-
+# yarn --daemon start resourcemanager

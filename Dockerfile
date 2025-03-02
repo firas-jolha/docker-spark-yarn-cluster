@@ -68,7 +68,7 @@ RUN mv /tmp/ssh_config $HOME/.ssh/config \
     && mv /tmp/slaves $SPARK_HOME/conf/slaves \
     && mv /tmp/spark/spark-env.sh $SPARK_HOME/conf/spark-env.sh \
     && mv /tmp/spark/log4j.properties $SPARK_HOME/conf/log4j.properties \
-    && mv /tmp/spark/spark.defaults.conf $SPARK_HOME/conf/spark.defaults.conf
+    && mv /tmp/spark/spark-defaults.conf $SPARK_HOME/conf/spark-defaults.conf
 
 # copy the script to the container
 ADD scripts/start-services.sh $HADOOP_HOME/start-services.sh
