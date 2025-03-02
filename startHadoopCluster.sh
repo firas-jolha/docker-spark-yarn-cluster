@@ -19,7 +19,9 @@ i=1
 while [ $i -le $N ]
 do
 	HADOOP_SLAVE="$HOST_PREFIX"-slave-$i
-	docker run --name $HADOOP_SLAVE -h $HADOOP_SLAVE --net=$NETWORK_NAME -itd "$IMG_NAME"
+	port=$(( 9864 + $i - 1 ))
+	# echo $port
+	docker run -p $port:9864 --name $HADOOP_SLAVE -h $HADOOP_SLAVE --net=$NETWORK_NAME -itd "$IMG_NAME"
 	i=$(( $i + 1 ))
 done
 
@@ -27,15 +29,20 @@ done
 
 HADOOP_MASTER="$HOST_PREFIX"-master
 docker run --name $HADOOP_MASTER -h $HADOOP_MASTER --net=$NETWORK_NAME \
-		-p  8088:8088  \
+		-p  8088:8088 \
 		-p  8080:8080 \
 		-p 8042:8042 \
 		-p 4040:4040 \
 		-p 4041:4041 \
+		-p 9000:9000 \
+		-p 9870:9870 \
 		-v "$PWD/app":"/app" \
 		-itd "$IMG_NAME"
-		# -p 5070:50070 \
-		# -p 5090:50090 \
+# 		-p 50070:50070 \
+		# -p 50030:50030 \
+		# -p 50090:50090 \
+
+
 # -p 50070:50070 -p 50090:50090 
 
 # START MULTI-NODES CLUSTER

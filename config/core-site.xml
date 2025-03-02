@@ -10,6 +10,16 @@
 	   <value>hdfs://cluster-master:9000/</value>
 	   <!-- the location of the namenode -->
 	</property>
+<!-- 
+	<property>
+        <name>dfs.http.address</name>
+        <value>50070</value>
+    </property>
+
+    <property>
+        <name>mapred.job.tracker.http.address</name>
+        <value>50030</value>
+    </property> -->
 	<!-- <property>
 	   <name>io.file.buffer.size</name>
 	   <value>131072</value>
