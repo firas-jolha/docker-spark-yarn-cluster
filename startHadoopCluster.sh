@@ -36,14 +36,28 @@ docker run --name $HADOOP_MASTER -h $HADOOP_MASTER --net=$NETWORK_NAME \
 		-p 4041:4041 \
 		-p 9000:9000 \
 		-p 9870:9870 \
+		-p 9869:9868 \
+		-p 50105:50105 \
+		-p 8480:8480 \
+		-p 19888:19888 \
 		-v "$PWD/app":"/app" \
 		-itd "$IMG_NAME"
-# 		-p 50070:50070 \
-		# -p 50030:50030 \
-		# -p 50090:50090 \
+
+# 8088: Yarn resource manager
+# 8042: Yarn node manager
 
 
-# -p 50070:50070 -p 50090:50090 
+# 8080: Spark Master
+# 4040: Spark application
+# 4041: next Spark application
+
+
+# 9000: HDFS namenode
+# 9870: HDFS namenode
+# 9869:9868: HDFS secondary namenode
+# 8480: HDFS Journal node
+
+# 19888: Mapreduce history server
 
 # START MULTI-NODES CLUSTER
 docker exec -it $HADOOP_MASTER "/usr/local/hadoop/start-services.sh"

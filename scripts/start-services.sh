@@ -6,6 +6,11 @@ $HADOOP_HOME/sbin/start-dfs.sh
 
 # starting Yarn daemons
 $HADOOP_HOME/sbin/start-yarn.sh
+# yarn --daemon start resourcemanager
+
+# Start mapreduce history server
+mapred --daemon start historyserver
+
 
 # track process IDs of services
 jps -lm
@@ -25,7 +30,7 @@ hdfs dfs -put /usr/local/spark/jars/* /apps/spark/jars/
 # spark-jars.zip  /apps/spark
 
 # Starts both a master and a number of workers
-$SPARK_HOME/sbin/start-all.sh
+# $SPARK_HOME/sbin/start-all.sh
 
 # Stops both the master and the workers
 # $SPARK_HOME/sbin/stop-all.sh
@@ -37,4 +42,5 @@ scala -version
 jps -lm
 
 
-# yarn --daemon start resourcemanager
+hdfs dfs -mkdir -p /user/root
+
