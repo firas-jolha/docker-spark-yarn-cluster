@@ -48,7 +48,7 @@ RUN rm /spark.tar.gz
 ENV HADOOP_HOME=/usr/local/hadoop
 ENV SPARK_HOME=/usr/local/spark
 # add binaries of hadoop and spark to system path
-ENV PATH=$PATH:$HADOOP_HOME/bin:$HADOOP_HOME/sbin:$SPARK_HOME/bin:$SPARK_HOME:sbin
+ENV PATH=$PATH:$HADOOP_HOME/bin:$HADOOP_HOME/sbin:$SPARK_HOME/bin:$SPARK_HOME/sbin
 
 # create directories for storing data in namenode and datanode
 RUN mkdir -p $HADOOP_HOME/hdfs/namenode \

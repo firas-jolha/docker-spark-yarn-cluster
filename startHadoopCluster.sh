@@ -7,6 +7,7 @@ NETWORK_NAME=$HOST_PREFIX
 
 N=${1:-2}
 NET_QUERY=$(docker network ls | grep -i $NETWORK_NAME)
+echo $NET_QUERY
 if [ -z "$NET_QUERY" ]; then
 	docker network create --driver=bridge $NETWORK_NAME
 fi
@@ -34,10 +35,8 @@ docker run --name $HADOOP_MASTER -h $HADOOP_MASTER --net=$NETWORK_NAME \
 		-p 8042:8042 \
 		-p 4040:4040 \
 		-p 4041:4041 \
-		-p 9000:9000 \
 		-p 9870:9870 \
 		-p 9869:9868 \
-		-p 50105:50105 \
 		-p 8480:8480 \
 		-p 19888:19888 \
 		-v "$PWD/app":"/app" \
@@ -52,7 +51,7 @@ docker run --name $HADOOP_MASTER -h $HADOOP_MASTER --net=$NETWORK_NAME \
 # 4041: next Spark application
 
 
-# 9000: HDFS namenode
+# 9000: HDFS namenode rpc port
 # 9870: HDFS namenode
 # 9869:9868: HDFS secondary namenode
 # 8480: HDFS Journal node
