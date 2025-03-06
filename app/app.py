@@ -22,3 +22,5 @@ print(rdd.collect())
 
 print("hello")
 
+from backend import some_f
+some_f(spark)

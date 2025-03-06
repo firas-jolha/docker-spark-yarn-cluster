@@ -27,6 +27,7 @@ hdfs dfs -chmod 744 /apps/spark/jars
 # Copy all jars to HDFS
 # zip /usr/local/spark/jars/spark-jars.zip /usr/local/spark/jars/*
 hdfs dfs -put /usr/local/spark/jars/* /apps/spark/jars/
+hdfs dfs -chmod +rx /apps/spark/jars/
 # spark-jars.zip  /apps/spark
 
 # Starts both a master and a number of workers
@@ -41,6 +42,8 @@ scala -version
 # track process IDs of services
 jps -lm
 
-
+# Create a directory for root user on HDFS
 hdfs dfs -mkdir -p /user/root
 
+# Create directory for spark history server
+# mkdir -p /tmp/spark-events

@@ -21,8 +21,9 @@ while [ $i -le $N ]
 do
 	HADOOP_SLAVE="$HOST_PREFIX"-slave-$i
 	port=$(( 9864 + $i - 1 ))
+	port_spark_worker=$(( 8081 + $i - 1 ))
 	# echo $port
-	docker run -p $port:9864 --name $HADOOP_SLAVE -h $HADOOP_SLAVE --net=$NETWORK_NAME -itd "$IMG_NAME"
+	docker run -p $port:9864 -p $port_spark_worker:8081 --name $HADOOP_SLAVE -h $HADOOP_SLAVE --net=$NETWORK_NAME -itd "$IMG_NAME"
 	i=$(( $i + 1 ))
 done
 
@@ -37,7 +38,7 @@ docker run --name $HADOOP_MASTER -h $HADOOP_MASTER --net=$NETWORK_NAME \
 		-p 4041:4041 \
 		-p 9870:9870 \
 		-p 9869:9868 \
-		-p 8480:8480 \
+		-p  18080:18080 \
 		-p 19888:19888 \
 		-v "$PWD/app":"/app" \
 		-itd "$IMG_NAME"
@@ -49,12 +50,13 @@ docker run --name $HADOOP_MASTER -h $HADOOP_MASTER --net=$NETWORK_NAME \
 # 8080: Spark Master
 # 4040: Spark application
 # 4041: next Spark application
-
+# 18080: Spark history server
+# 8081: Spark worker
 
 # 9000: HDFS namenode rpc port
 # 9870: HDFS namenode
 # 9869:9868: HDFS secondary namenode
-# 8480: HDFS Journal node
+# 9864: HDFS datanode
 
 # 19888: Mapreduce history server
 

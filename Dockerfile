@@ -10,7 +10,7 @@ RUN apt-get update && \
  apt-get -y dist-upgrade && \
  apt-get install -y openssh-server \ 
  default-jdk wget scala openjdk-8-jdk \ 
- net-tools iputils-ping curl
+ net-tools iputils-ping curl python3-venv
 
 RUN  apt-get -y update
 # install zip tool
@@ -47,8 +47,12 @@ RUN rm /spark.tar.gz
 # set home directory for hadoop and spark
 ENV HADOOP_HOME=/usr/local/hadoop
 ENV SPARK_HOME=/usr/local/spark
+
 # add binaries of hadoop and spark to system path
 ENV PATH=$PATH:$HADOOP_HOME/bin:$HADOOP_HOME/sbin:$SPARK_HOME/bin:$SPARK_HOME/sbin
+
+# RUN echo "export PATH=$PATH:$HADOOP_HOME/bin:$HADOOP_HOME/sbin:$SPARK_HOME/bin:$SPARK_HOME/sbin" >> ~/startup_bash.sh
+# ENV BASH_ENV=/root/startup_bash.sh
 
 # create directories for storing data in namenode and datanode
 RUN mkdir -p $HADOOP_HOME/hdfs/namenode \
@@ -87,6 +91,9 @@ EXPOSE 49707 2122 7001 7002 7003 7004 7005 7006 7007 8888
 
 # create a custom directory for my Spark app
 RUN mkdir -p /app
+
+# RUN echo "export PATH=$PATH" >> ~/.bashrc
+
 
 # Entry point for my container
 SHELL ["/bin/bash", "-c"]
