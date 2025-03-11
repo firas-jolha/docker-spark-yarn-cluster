@@ -21,7 +21,8 @@ while [ $i -le $N ]
 do
 	HADOOP_SLAVE="$HOST_PREFIX"-slave-$i
 	port=$(( 9864 + $i - 1 ))
-	port_spark_worker=$(( 8081 + $i - 1 ))
+	# port_spark_worker=$(( 8081 + $i - 1 ))
+	port_spark_worker=$(( 8081 + $i ))
 	# echo $port
 	docker run -p $port:9864 -p $port_spark_worker:8081 --name $HADOOP_SLAVE -h $HADOOP_SLAVE --net=$NETWORK_NAME -itd "$IMG_NAME"
 	i=$(( $i + 1 ))
