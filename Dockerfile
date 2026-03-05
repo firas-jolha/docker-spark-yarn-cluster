@@ -2,6 +2,9 @@
 FROM ubuntu:20.04
 # ubuntu Focal Fossa
 
+# Architecture of the build target (e.g. amd64, arm64)
+ARG TARGETARCH
+
 # Run the next commands as root user
 USER root
 
@@ -18,8 +21,8 @@ RUN  apt-get -y install zip
 # install vim tool
 RUN  apt-get -y install vim
 
-# set environment variable 
-ENV JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64
+# set environment variable (use arch-aware JAVA_HOME so it works on amd64 and arm64)
+ENV JAVA_HOME=/usr/lib/jvm/java-8-openjdk-${TARGETARCH}
 
 # Create ssh key and exchange it with the container
 RUN ssh-keygen -t rsa -f $HOME/.ssh/id_rsa -P "" \
