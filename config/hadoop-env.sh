@@ -22,7 +22,8 @@
 # remote nodes.
 
 # The java implementation to use.
-export JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64
+# Prefer an existing JAVA_HOME, otherwise detect from the java binary so it works on both amd64 and arm64.
+export JAVA_HOME=${JAVA_HOME:-$(dirname "$(dirname "$(readlink -f "$(which java)")")")}
 
 # The jsvc implementation to use. Jsvc is required to run secure datanodes
 # that bind to privileged ports to provide authentication of data transfer
